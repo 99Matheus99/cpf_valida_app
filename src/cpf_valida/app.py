@@ -16,10 +16,10 @@ class cpf_valida(toga.App):
         name_box = toga.Box(style=Pack(direction=ROW)) # será uma linha
 
         # definindo os widgets
-        cpf_label = toga.Label('Digite o cpf: ')
-        self.name_input = toga.TextInput() # utiliza o "self" pois a classe já tem esse método
+        cpf_label = toga.Label('Digite o cpf: ', style=Pack(padding=(0,5)))
+        self.name_input = toga.TextInput(style=Pack(padding=1)) # utiliza o "self" pois a classe já tem esse método
         
-        button = toga.Button('validar', on_press=self.valida_cpf) 
+        button = toga.Button('validar', on_press=self.valida_cpf, style=Pack(padding=5)) 
 
 
         # adicionando o conteúdo
@@ -60,8 +60,13 @@ class cpf_valida(toga.App):
                 return True
             else:
                 return False
-            
-        result = validacao()
+    
+        try:
+            result = validacao()
+        except Exception:
+            self.main_window.error_dialog('Erro', 'Entrada inválida')
+
+
         if result == True:
             self.main_window.info_dialog('resultado', 'O cpf é válido!')
         else:
